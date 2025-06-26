@@ -1,8 +1,0 @@
-uvicorn
-fastapi
-python-multipart
-numpy
-pandas
-Levenshtein
-scikit-learn
-requests
