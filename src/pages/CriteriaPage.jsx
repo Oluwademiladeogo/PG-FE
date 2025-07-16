@@ -88,7 +88,7 @@ export default function CriteriaPage() {
       }
 
       const ipa = JSON.parse(ipaStored);
-      const response = await fetch("http://localhost:5000/save-rankings", {
+      const response = await fetch("http://tenents.onrender.com/save-rankings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
