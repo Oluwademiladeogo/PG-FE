@@ -95,6 +95,17 @@ export default function CriteriaPage() {
 
       const ipa = JSON.parse(ipaStored);
       const analysedResult = JSON.parse(analysedResultStored);
+
+      const requestBody = {
+        word: ipa.word,
+        ipa_variants: analysedResult.ipa_variants || [],
+        confusion_matrix: analysedResult.confusion_matrix || {
+          labels: [],
+          matrix: [],
+        },
+        sliders: sliders,
+      };
+      console.log(requestBody);
       const response = await fetch(
         "https://tenents.onrender.com/save-rankings",
         {
@@ -102,10 +113,9 @@ export default function CriteriaPage() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ sliders, ipa, analysedResult }),
+          body: JSON.stringify(requestBody),
         }
       );
-
       console.log("Response status:", response.status);
       const data = await response.json();
       console.log("Response data:", data);
