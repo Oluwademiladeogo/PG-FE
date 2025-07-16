@@ -83,18 +83,28 @@ export default function CriteriaPage() {
 
     try {
       const ipaStored = sessionStorage.getItem("targetWordIpaResult");
+      const analysedResultStored = sessionStorage.getItem("uploadResult");
+
       if (!ipaStored) {
         throw new Error("No target word found. Please start over.");
       }
 
+      if (!analysedResultStored) {
+        throw new Error("No analysis result found. Please start over.");
+      }
+
       const ipa = JSON.parse(ipaStored);
-      const response = await fetch("http://tenents.onrender.com/save-rankings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ sliders, ipa }),
-      });
+      const analysedResult = JSON.parse(analysedResultStored);
+      const response = await fetch(
+        "https://tenents.onrender.com/save-rankings",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sliders, ipa, analysedResult }),
+        }
+      );
 
       console.log("Response status:", response.status);
       const data = await response.json();
